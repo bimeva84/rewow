@@ -1,0 +1,69 @@
+<mat-card [formGroup]="form">
+    <mat-grid-list id="datosConsulta" cols="1" rowHeight="70px">
+        <mat-grid-tile colspan="1">
+            <mat-form-field appearance="fill">
+                <input matInput formControlName="nombreDueno" placeholder="Nombre Dueño: ">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <mat-form-field appearance="fill">
+                <input matInput formControlName="nombreMascota" placeholder="Nombre Mascota: ">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <mat-form-field appearance="fill">
+                <mat-select formControlName="tipoMascota" placeholder="Tipo Mascota: ">
+                    <mat-option *ngFor="let mas of tipoMascota" [value]="mas.tipoMascotaId">
+                        {{mas.tipoMascotaDesc}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <div fxLayout fxLayoutAlign="center center" fxLayoutGap="30px">
+                <label id="example-radio-group-label">Tamaño</label>
+                <br>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    formControlName="tamaño" placeholder="Tipo Mascota: ">
+                    <mat-radio-button value="P" class="example-radio-button">Pequeño</mat-radio-button>
+                    <mat-radio-button value="M" class="example-radio-button">Mediano</mat-radio-button>
+                    <mat-radio-button value="G" class="example-radio-button">Grande</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="2">
+            <mat-form-field appearance="fill">
+                <textarea matInput rows="3" cols="10" maxlength="500" formControlName="descripcion"
+                    placeholder="Descripcion: "></textarea>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <label id="example-radio-group-label">Lista Vacunas</label>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="4">
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8 listaVacunas">
+                <ng-container matColumnDef="Numero">
+                    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.numero}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Tipo">
+                    <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.tipo}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Fecha">
+                    <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.fecha}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <button mat-stroked-button (click)="guardarRegistro()">Guardar</button>
+            <button mat-stroked-button (click)="consultaRegistro()">Consultar</button>
+            <button mat-stroked-button (click)="borrarRegistro()">Eliminar</button>
+            <button mat-stroked-button (click)="limpiarRegistros()">Limpiar</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</mat-card>
